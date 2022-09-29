@@ -8,10 +8,23 @@ import { ApiService } from '../api.service';
 })
 export class HomePage {
 
-  constructor(private api: ApiService) {}
+  page;
+  perpage;
+  total;
+  totalpages;
+  data;
 
-  buscarTodos(page =1) {
-    this.api.buscarUsuarios(page).subscribe(usuarios=> {});
+  constructor(private apiService: ApiService) {this.buscarTodos();}
+
+  buscarTodos(page =2) {
+    this.apiService.buscarUsuarios(page).subscribe(usuarios=> {
+      console.log(usuarios);
+      this.page = usuarios['page'];
+      this.perpage = usuarios['per_page'];
+      this.total = usuarios['total'];
+      this.totalpages = usuarios['total_pages'];
+      this.data = usuarios['data'];
+    });
   }
 
 }
